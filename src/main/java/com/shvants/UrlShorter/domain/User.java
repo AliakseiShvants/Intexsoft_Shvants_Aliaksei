@@ -1,4 +1,4 @@
-package com.shvants.UrlShorter.entities;
+package com.shvants.UrlShorter.domain;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -31,6 +31,9 @@ public class User {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    public User() {
+    }
 
     public User(String fullName) {
         this.fullName = fullName;

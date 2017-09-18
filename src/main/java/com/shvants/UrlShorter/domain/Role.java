@@ -1,12 +1,10 @@
-package com.shvants.UrlShorter.entities;
-
-import org.springframework.data.annotation.Id;
+package com.shvants.UrlShorter.domain;
 
 import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Simple JB objects that represent role of {@link User}
+ * Simple JB object that represents role of {@link User}
  */
 
 @Entity

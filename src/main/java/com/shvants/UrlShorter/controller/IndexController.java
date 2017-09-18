@@ -1,4 +1,4 @@
-package com.shvants.UrlShorter.controllers;
+package com.shvants.UrlShorter.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

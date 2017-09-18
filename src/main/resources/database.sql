@@ -9,6 +9,8 @@ password varchar (100) not null
  --table: links
 create table links(
 id serial primary key,
+url varchar (255) not null,
+shortUrl varchar (100) not null ,
 description varchar (255) not null
 );
 
