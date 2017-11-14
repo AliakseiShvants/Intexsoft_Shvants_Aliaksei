@@ -1,6 +1,7 @@
 package com.shvants.UrlShorter.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -9,17 +10,17 @@ import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements Serializable{
+
+    private static final long serialVersionUID = 5530737771243918379L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //todo enum
     @Column(name = "role")
     private String role;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
 
     public Role() {
     }
@@ -40,20 +41,11 @@ public class Role {
         this.role = role;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
                 ", role='" + role + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

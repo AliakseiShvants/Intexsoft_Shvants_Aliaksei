@@ -1,0 +1,8 @@
+<h2>Регистрация нового пользователя</h2>
+<form >
+	<p> <input type="text" [(ngModel)]="fullName" placeholder="Полное имя" onclick="this.placeholder=''"> </p>
+	<p> <input type="text" [(ngModel)]="login" placeholder="Логин" onclick="this.placeholder=''"> </p>
+	<p> <input type="text" value="{{concat(fullName,'-',login)}}" placeholder="Пароль" onclick="this.placeholder=''"> </p>
+	<p> <input type="image" routerLink="/logon" src="assets/img/submit_signup_button.png" alt="Зарегистрироваться"
+             > </p>
+</form>

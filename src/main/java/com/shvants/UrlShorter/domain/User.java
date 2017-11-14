@@ -1,6 +1,7 @@
 package com.shvants.UrlShorter.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -9,7 +10,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = -8854389934589673010L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +30,22 @@ public class User {
     @Transient
     transient private String confirmPassword;
 
-    @ManyToMany
+    @OneToOne
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Role userRole;
 
     public User() {
+    }
+
+    public User(String fullName, String login, String password) {
+        this.fullName = fullName;
+        this.login = login;
+        this.password = password;
+    }
+    public User(Long id, String fullName, String login, String password) {
+        this(fullName, login, password);
+        this.userId = id;
     }
 
     public User(String fullName) {
@@ -70,4 +83,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

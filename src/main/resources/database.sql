@@ -23,6 +23,7 @@ title varchar (100) not null
 --table: roles
 create table roles(
 id serial primary key,
+  -- todo enum
 role varchar (100) not null
 );
 
@@ -69,7 +70,7 @@ insert into roles values
 (2, 'USER');
 
 insert into users(username, login, password) values
-( 'Aliaksei Shvants', 'admin', 'admin'),
+('Aliaksei Shvants', 'admin', 'admin'),
 ('Hanna Baushevich', 'ane4ka', '24');
 
 insert into users_roles values
