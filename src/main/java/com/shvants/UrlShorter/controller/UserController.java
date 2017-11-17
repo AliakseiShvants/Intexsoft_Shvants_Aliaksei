@@ -3,10 +3,7 @@ package com.shvants.UrlShorter.controller;
 import com.shvants.UrlShorter.domain.User;
 import com.shvants.UrlShorter.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -38,5 +35,16 @@ public class UserController {
             @RequestParam(value = "email", defaultValue = "email@gmail.com") String email,
             @RequestParam(value = "password", defaultValue = "1111") String password){
         return new User(id, fullName, email, password);
+    }
+
+    @RequestMapping("/register")
+    public boolean register(@RequestBody User newUser){
+        for (User user : userRepo.findAll()){
+            if (newUser.getFullName().equals(user.getFullName()) || newUser.getLogin().equals(user.getLogin())){
+                return false;
+            }
+        }
+        userRepo.save(newUser);
+        return true;
     }
 }

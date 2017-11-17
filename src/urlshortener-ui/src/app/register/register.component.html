@@ -1,8 +1,34 @@
-<h2>Регистрация нового пользователя</h2>
-<form >
-	<p> <input type="text" [(ngModel)]="fullName" placeholder="Полное имя" onclick="this.placeholder=''"> </p>
-	<p> <input type="text" [(ngModel)]="login" placeholder="Логин" onclick="this.placeholder=''"> </p>
-	<p> <input type="text" value="{{concat(fullName,'-',login)}}" placeholder="Пароль" onclick="this.placeholder=''"> </p>
-	<p> <input type="image" routerLink="/logon" src="assets/img/submit_signup_button.png" alt="Зарегистрироваться"
-             > </p>
+<form action="#" method="post" (submit)="submit(user)">
+  <h2>Регистрация нового пользователя</h2>
+  <p>
+    <label for="fullName" class="floatLabel">Имя и фамилия</label>
+    <input id="fullName" name="fullName" type="text" [(ngModel)]="user.fullName" required="required" minlength="4">
+    <span *ngIf="user.fullName != '' && user.fullName.length < 2">Имя и фамилия должны быть длиннее 4 символов</span>
+  </p>
+  <p>
+    <label for="login" class="floatLabel">Логин (ваше имя в системе)</label>
+    <input id="login" name="login" type="text" [(ngModel)]="user.login">
+    <span *ngIf="user.login != '' && user.login.length < 2">Логин должен быть длиннее 4 символов</span>
+  </p>
+  <p>
+    <label for="password" class="floatLabel">Пароль</label>
+    <input id="password" name="password" type="password" [(ngModel)]="user.password">
+    <span *ngIf="user.password != '' && user.password.length < 2">Пароль должен быть длиннее 7 символов</span>
+  </p>
+  <p>
+    <label for="confirmPassword" class="floatLabel">Подтвердите пароль</label>
+    <input id="confirmPassword" name="confirmPassword" type="password" [(ngModel)]="user.confirmPassword">
+    <span *ngIf="user.confirmPassword != '' && user.confirmPassword.length < 2">Пароль должен быть длиннее 7 символов</span>
+    <span *ngIf="user.password != user.confirmPassword">Поля "Пароль" и "Подтвердите пароль" должны совпадать</span>
+  </p>
+  <p>
+  <span *ngIf="!success">"Пользователь с таким именем или логином уже существует!"</span>
+    <input type="submit" value="Зарегистрироваться" id="submit" routerLink="/login">
+    <input type="button" value="Назад" id="back" routerLink='/main'>
+  </p>
 </form>
+
+
+<!--<div *ngIf="success" routerLink="/login">{{successMessage()}}</div>-->
+<!--<ng-template #successBlock routerLink="/login">{{successMessage()}}</ng-template>-->
+<!--<ng-template #faultBlock>{{faultMessage()}}</ng-template>-->
