@@ -1,11 +1,15 @@
 <div class="wrapper">
   <app-header></app-header>
-  <br>
-  <br>
-  <br>
-  <router-outlet></router-outlet>
-  <br>
-  <br>
-  <br>
+
+  <router-outlet>
+
+    <div class="main">
+      <input id="info" routerLink="/login" type="button" value="Информация" />
+      <input id="input" routerLink="/login" type="button" value="Войти" />
+      <input id="register" routerLink="/register" type="button" value="Регистрация" />
+    </div>
+
+  </router-outlet>
+
   <app-footer></app-footer>
 </div>

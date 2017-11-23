@@ -10,15 +10,27 @@ import {HttpResponse} from "@angular/common/http";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user: User ;
+  user : User = new User('','','');
+  success = false;
+  notExist = false;
 
   constructor(private userService : UserService) {
   }
+  ngOnInit() {}
 
-  ngOnInit() {
-    this.userService.getUser()
-      .subscribe(
-        (res: User) => this.user = res
-      );
+  submit(user: User){
+    if(user.login != '' && user.password != ''){
+      this.userService.register(user)
+        .subscribe(
+          (data: boolean) => this.success = data,
+          error => {
+            console.log(error)
+          }
+        );
+      if(!this.success){
+        this.notExist = true;
+      }
+    }
+    else alert("Данные для регистрации введены неверно");
   }
 }

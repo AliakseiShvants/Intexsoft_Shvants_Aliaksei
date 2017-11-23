@@ -17,7 +17,6 @@ import { ShorterComponent } from './shorter/shorter.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { BackComponent } from './back/back.component';
 import { LogoutComponent } from './logout/logout.component';
-import { OnMainComponent } from './on-main/on-main.component';
 import { UrlInfoComponent } from './url-info/url-info.component';
 import { EditComponent } from './edit/edit.component';
 import {UserService} from "../service/user.service";
@@ -50,7 +49,6 @@ const appRoutes: Routes = [
     InfoComponent,
     BackComponent,
     LogoutComponent,
-    OnMainComponent,
     UrlInfoComponent,
     EditComponent
   ],

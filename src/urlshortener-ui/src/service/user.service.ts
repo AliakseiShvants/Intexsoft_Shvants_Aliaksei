@@ -8,6 +8,8 @@ export class UserService implements OnInit{
   ngOnInit() {
   }
 
+  private headers = new Headers({'Content-Type': 'text'});
+
   url: string = 'api/users/getMockUser';
   registerUrl: string = 'api/users/register';
 

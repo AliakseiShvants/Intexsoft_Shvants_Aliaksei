@@ -1,7 +1,6 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../entity/user";
 import {UserService} from "../../service/user.service";
-import {errorObject} from "rxjs/util/errorObject";
 
 @Component({
   selector: 'app-register',
@@ -10,11 +9,10 @@ import {errorObject} from "rxjs/util/errorObject";
 })
 export class RegisterComponent implements OnInit {
 
-  user : User = new User('','','','');
-  success: boolean = true;
-
-  @ViewChild('successBlock')
-  successBlock: TemplateRef<any>|null = null;
+  user : User = new User('','','');
+  confirmPassword : string;
+  success = false;
+  notExist = false;
 
   constructor(private userService: UserService) { }
 
@@ -22,17 +20,18 @@ export class RegisterComponent implements OnInit {
   }
 
   submit(user: User){
-    this.userService.register(user)
-      .subscribe(
-        (flag: boolean) => this.success = flag,
-        error => console.log(error)
+    if(user.fullName != '' && user.login != '' && user.password != ''){
+      this.userService.register(user)
+        .subscribe(
+          (data: boolean) => this.success = data,
+          error => {
+            console.log(error)
+          }
         );
+      if(!this.success){
+        this.notExist = true;
+      }
+    }
+    else alert("Данные для регистрации введены неверно");
   }
-
-  // successMessage(){
-  //   alert("Новый пользователь успешно добавлен!");
-  // }
-  // faultMessage(){
-  //   alert("Пользователь с таким именем или логином уже существует!");
-  // }
 }

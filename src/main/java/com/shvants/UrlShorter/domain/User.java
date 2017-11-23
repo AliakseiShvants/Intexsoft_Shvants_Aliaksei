@@ -27,9 +27,6 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Transient
-    transient private String confirmPassword;
-
     @OneToOne
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))

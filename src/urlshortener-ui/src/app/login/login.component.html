@@ -1,8 +1,28 @@
-<h2>Вход</h2>
-<form >
-	<p> <input type="text" value="Логин" onclick="this.value=''"> </p>
-	<p> <input type="password" value="Пароль" onclick="this.value=''"> </p>
-	<p> <input type="image" routerLink="/logon" src="assets/img/submit_login_button.png" alt="Вход"> </p>
+<!--<h2>Вход</h2>-->
+<!--<form >-->
+	<!--<p> <input type="text" value="Логин" onclick="this.value=''"> </p>-->
+	<!--<p> <input type="password" value="Пароль" onclick="this.value=''"> </p>-->
+	<!--<p> <input type="image" routerLink="/logon" src="assets/img/submit_login_button.png" alt="Вход"> </p>-->
+<!--</form>-->
+<!--<br>-->
+
+<form action="#" method="post" (submit)="submit(user)" [hidden]="success">
+  <h2>Вход</h2>
+  <p>
+    <label for="login" class="floatLabel">Логин (ваше имя в системе)</label>
+    <input id="login" name="login" type="text" [(ngModel)]="user.login" required>
+    <span *ngIf="user.login != '' && user.login.length < 2">Логин должен быть длиннее 4 символов</span>
+  </p>
+  <p>
+    <label for="password" class="floatLabel">Пароль</label>
+    <input id="password" name="password" type="password" [(ngModel)]="user.password" required>
+    <span *ngIf="user.password != '' && user.password.length < 2">Пароль должен быть длиннее 7 символов</span>
+  </p>
+  <p>
+    <span *ngIf="notExist">Пользователя с таким логином не существует! Пожалуйста, зарегистрируйтесь!</span>
+    <input type="submit" value="Войти" id="submit">
+  </p>
 </form>
-<br>
-<app-on-main></app-on-main>
+<div class="success" *ngIf="success">
+  <h3>Вход в систему успешно выполнен!</h3>
+</div>

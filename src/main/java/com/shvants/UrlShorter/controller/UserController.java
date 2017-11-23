@@ -3,8 +3,11 @@ package com.shvants.UrlShorter.controller;
 import com.shvants.UrlShorter.domain.User;
 import com.shvants.UrlShorter.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -37,14 +40,21 @@ public class UserController {
         return new User(id, fullName, email, password);
     }
 
-    @RequestMapping("/register")
-    public boolean register(@RequestBody User newUser){
-        for (User user : userRepo.findAll()){
-            if (newUser.getFullName().equals(user.getFullName()) || newUser.getLogin().equals(user.getLogin())){
-                return false;
-            }
+    @PostMapping(value = "/register")
+    @ResponseBody
+    public Boolean register(@RequestBody User newUser){
+        List<User> userList = userRepo.findByFullNameOrLogin(newUser.getFullName(), newUser.getLogin());
+        if (userList.isEmpty()){
+            userRepo.save(newUser);
+            return true;
         }
-        userRepo.save(newUser);
-        return true;
+        return false;
+    }
+
+    @PostMapping(value = "/login")
+    @ResponseBody
+    public Boolean login(@RequestBody User user){
+        User loggedUser = userRepo.findByLogin(user.getLogin());
+        return loggedUser != null;
     }
 }
