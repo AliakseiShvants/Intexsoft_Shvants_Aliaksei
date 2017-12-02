@@ -1,14 +1,14 @@
 package com.shvants.UrlShorter.controller;
 
+import com.shvants.UrlShorter.domain.Link;
+import com.shvants.UrlShorter.domain.Role;
 import com.shvants.UrlShorter.domain.User;
 import com.shvants.UrlShorter.repository.UserRepo;
+import com.shvants.UrlShorter.service.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/users")
@@ -19,6 +19,7 @@ public class UserController {
     @Autowired
     public UserController(UserRepo userRepo) {
         this.userRepo = userRepo;
+        IdGenerator.initUserId(userRepo);
     }
 
     @RequestMapping("/{userId}")
@@ -31,20 +32,21 @@ public class UserController {
         return userRepo.findAll();
     }
 
-    @RequestMapping("/getMockUser")
-    public User getUser(
-            @RequestParam(value = "userId", defaultValue = "1") Long id,
-            @RequestParam(value = "username", defaultValue = "Aliaksei Shvants") String fullName,
-            @RequestParam(value = "email", defaultValue = "email@gmail.com") String email,
-            @RequestParam(value = "password", defaultValue = "1111") String password){
-        return new User(id, fullName, email, password);
-    }
+//    @RequestMapping("/getMockUser")
+//    public User getUser(
+//            @RequestParam(value = "userId", defaultValue = "1") Long id,
+//            @RequestParam(value = "username", defaultValue = "Aliaksei Shvants") String fullName,
+//            @RequestParam(value = "email", defaultValue = "email@gmail.com") String email,
+//            @RequestParam(value = "password", defaultValue = "1111") String password){
+//        return new User(id, fullName, email, password);
+//    }
 
     @PostMapping(value = "/register")
     @ResponseBody
-    public Boolean register(@RequestBody User newUser){
-        List<User> userList = userRepo.findByFullNameOrLogin(newUser.getFullName(), newUser.getLogin());
+    public Boolean register(@RequestBody User user){
+        List<User> userList = userRepo.findByFullNameOrLogin(user.getFullName(), user.getLogin());
         if (userList.isEmpty()){
+            User newUser = new User(user.getFullName(), user.getLogin(), user.getPassword(), Role.USER.name());
             userRepo.save(newUser);
             return true;
         }
@@ -54,7 +56,9 @@ public class UserController {
     @PostMapping(value = "/login")
     @ResponseBody
     public Boolean login(@RequestBody User user){
-        User loggedUser = userRepo.findByLogin(user.getLogin());
+        User loggedUser = userRepo.findByLoginAndPassword(user.getLogin(), user.getPassword());
         return loggedUser != null;
     }
+
+
 }

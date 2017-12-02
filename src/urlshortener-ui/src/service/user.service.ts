@@ -8,21 +8,12 @@ export class UserService implements OnInit{
   ngOnInit() {
   }
 
-  private headers = new Headers({'Content-Type': 'text'});
-
-  url: string = 'api/users/getMockUser';
-  registerUrl: string = 'api/users/register';
+  address: string = 'api/users/';
 
   constructor(private httpClient: HttpClient){
   }
 
-  getUser(): Observable<any>{
-    return this.httpClient.get(this.url);
+  postUser(user: User, postfix: string): Observable<any>{
+    return this.httpClient.post(this.address.concat(postfix), user);
   }
-
-  register(user: User): Observable<any>{
-    return this.httpClient.post(this.registerUrl, user);
-  }
-
-
 }

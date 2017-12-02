@@ -1,6 +1,35 @@
+div .wrapper{
+  background-color: #F3FFEB;
+  height: 100%;
+}
+.header{
+  /*position: absolute;*/
+  height: 20%;
+  right: 0;
+  top: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+  background-color: #EFEBFF;
+}
+.header #first{
+  font-size: 26pt;
+  font-family: inherit;
+  font-weight: bold;
+}
+.header #second{
+  font-size: 20pt;
+  font-style: italic;
+}
+
 div .main {
+  /*position: fixed;*/
+  right: 0;
+  left: 0;
+  top: 20%;
   margin-top: 2em;
   margin-bottom: 2em;
+
 }
 div #info{
   background: cornflowerblue;
@@ -47,4 +76,15 @@ div #register{
   outline: none;
   padding: .5em 0.5em;
   text-shadow: 0 1px #68B25B;
+}
+
+footer{
+  /*position: absolute;*/
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+  background-color: #FFEBEC;
+  height: 5em;
 }

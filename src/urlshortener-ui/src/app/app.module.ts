@@ -5,8 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -20,6 +18,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { UrlInfoComponent } from './url-info/url-info.component';
 import { EditComponent } from './edit/edit.component';
 import {UserService} from "../service/user.service";
+import {LinkService} from "../service/link.service";
 // import {APP_ROUTES} from "./app.routes";
 
 const appRoutes: Routes = [
@@ -38,8 +37,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
     MainComponent,
     LoginComponent,
     LogonComponent,
@@ -58,7 +55,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [UserService],
+  providers: [UserService, LinkService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

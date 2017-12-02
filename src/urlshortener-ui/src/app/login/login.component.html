@@ -1,11 +1,3 @@
-<!--<h2>Вход</h2>-->
-<!--<form >-->
-	<!--<p> <input type="text" value="Логин" onclick="this.value=''"> </p>-->
-	<!--<p> <input type="password" value="Пароль" onclick="this.value=''"> </p>-->
-	<!--<p> <input type="image" routerLink="/logon" src="assets/img/submit_login_button.png" alt="Вход"> </p>-->
-<!--</form>-->
-<!--<br>-->
-
 <form action="#" method="post" (submit)="submit(user)" [hidden]="success">
   <h2>Вход</h2>
   <p>
@@ -19,7 +11,7 @@
     <span *ngIf="user.password != '' && user.password.length < 2">Пароль должен быть длиннее 7 символов</span>
   </p>
   <p>
-    <span *ngIf="notExist">Пользователя с таким логином не существует! Пожалуйста, зарегистрируйтесь!</span>
+    <span *ngIf="notExist">Неправильный логин и(или) пароль. Зарегистрируйтесь!</span>
     <input type="submit" value="Войти" id="submit">
   </p>
 </form>

@@ -1,12 +1,24 @@
-<h2>Вы Гость!</h2>
-<h3>Вы можете получить информацию о ссылке</h3>
-<form>
-  <input type="text" size=40  placeholder="Вставьте ссылку">
-  <br>
-  <br>
-  <input type="image" routerLink="/url-info" src="assets/img/get_button.png" alt="Получить!">
+<!--<h2>Вы Гость!</h2>-->
+<!--<h3>Вы можете получить информацию о ссылке</h3>-->
+<!--<form>-->
+  <!--<input type="text" size=40  placeholder="Вставьте ссылку">-->
+  <!--<br>-->
+  <!--<br>-->
+  <!--<input type="image" routerLink="/url-info" src="assets/img/get_button.png" alt="Получить!">-->
+<!--</form>-->
+<!--<br>-->
+<!--<br>-->
+<!--<br>-->
+<form action="#" method="post" (submit)="findLink()" >
+  <h2>Получить информацию о ссылке</h2>
+  <p>
+    <label for="url" class="floatLabel">Вставьте ссылку</label>
+    <input id="url" name="url" type="text" [(ngModel)]="url" required>
+    <span *ngIf="url != '' && url.length < 2">Ссылка должна соответствовать формату</span>
+  </p>
+  <p>
+    <span *ngIf="isFail"> К сожалению, такую ссылку еще не сокращали. Вы можете быть первым! </span>
+    <input type="submit" value="Получить!" id="submit">
+  </p>
 </form>
-<br>
-<br>
-<br>
-
+<div>{{link.linkId}}</div>

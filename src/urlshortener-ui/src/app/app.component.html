@@ -1,15 +1,21 @@
 <div class="wrapper">
-  <app-header></app-header>
 
-  <router-outlet>
+  <header class="header">
+    <div id="first"> Сокращатель ссылок </div>
+    <br>
+    <div id="second"> "Краткость - сестра таланта" А.П.Чехов </div>
+  </header>
 
-    <div class="main">
-      <input id="info" routerLink="/login" type="button" value="Информация" />
-      <input id="input" routerLink="/login" type="button" value="Войти" />
-      <input id="register" routerLink="/register" type="button" value="Регистрация" />
-    </div>
+  <div class="main">
+    <input id="info" routerLink="/info" type="button" value="Информация" />
+    <input id="input" routerLink="/login" type="button" value="Войти" />
+    <input id="register" routerLink="/register" type="button" value="Регистрация" />
+  </div>
 
-  </router-outlet>
+  <router-outlet></router-outlet>
 
-  <app-footer></app-footer>
+  <footer class="footer">
+    <h4>Test Service for URLs shorten</h4>
+    <h5>Copyright Aliaksei Shvants</h5>
+  </footer>
 </div>

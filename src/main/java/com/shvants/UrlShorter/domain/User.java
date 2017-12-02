@@ -27,21 +27,20 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @OneToOne
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Role userRole;
+    @Column(name = "role")
+    private String role;
 
     public User() {
     }
 
-    public User(String fullName, String login, String password) {
+    public User(String fullName, String login, String password, String role) {
         this.fullName = fullName;
         this.login = login;
         this.password = password;
+        this.role = role;
     }
-    public User(Long id, String fullName, String login, String password) {
-        this(fullName, login, password);
+    public User(Long id, String fullName, String login, String password, String role) {
+        this(fullName, login, password, role);
         this.userId = id;
     }
 
@@ -81,5 +80,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   confirmPassword : string;
   success = false;
   notExist = false;
+  postfix: string = 'register';
 
   constructor(private userService: UserService) { }
 
@@ -21,7 +22,7 @@ export class RegisterComponent implements OnInit {
 
   submit(user: User){
     if(user.fullName != '' && user.login != '' && user.password != ''){
-      this.userService.register(user)
+      this.userService.postUser(user, this.postfix)
         .subscribe(
           (data: boolean) => this.success = data,
           error => {

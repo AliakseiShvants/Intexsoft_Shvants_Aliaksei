@@ -25,17 +25,21 @@ public class Link {
     @Column(name = "description")
     private String description;
 
-    //TODO it is right?
-    @JoinTable(name = "statistics", joinColumns = @JoinColumn(name = "amount"))
-    private AtomicInteger clickAmount;
-
-    //TODO it's that right too?
-    @ManyToMany
-    @JoinTable(name = "tags", joinColumns = @JoinColumn(name = "id"),
-    inverseJoinColumns = @JoinColumn(name = "title"))
-    private List<Tag> tagList;
+//    //TODO it is right?
+//    @JoinTable(name = "statistics", joinColumns = @JoinColumn(name = "amount"))
+//    private AtomicInteger clickAmount;
+//
+//    //TODO it's that right too?
+//    @ManyToMany
+//    @JoinTable(name = "tags", joinColumns = @JoinColumn(name = "id"),
+//    inverseJoinColumns = @JoinColumn(name = "title"))
+//    private List<Tag> tagList;
 
     public Link() {
+    }
+
+    public Link(Long id) {
+        this.linkId = id;
     }
 
     public Link(String url) {
@@ -49,12 +53,12 @@ public class Link {
 
     public Link(String url, Tag ... tags) {
         this(url);
-        this.tagList = new ArrayList<>(Arrays.asList(tags));
+//        this.tagList = new ArrayList<>(Arrays.asList(tags));
     }
 
     public Link(String url, String description, Tag ... tags) {
         this(url, description);
-        this.tagList = new ArrayList<>(Arrays.asList(tags));
+//        this.tagList = new ArrayList<>(Arrays.asList(tags));
     }
 
     public Long getLinkId() {
@@ -89,31 +93,21 @@ public class Link {
         this.description = description;
     }
 
-    public AtomicInteger getClickAmount() {
-        return clickAmount;
-    }
+//    public AtomicInteger getClickAmount() {
+//        return clickAmount;
+//    }
 
-    public void setClickAmount(AtomicInteger clickAmount) {
-        this.clickAmount = clickAmount;
-    }
+//    public void setClickAmount(AtomicInteger clickAmount) {
+//        this.clickAmount = clickAmount;
+//    }
 
-    public List<Tag> getTagList() {
-        return tagList;
-    }
+//    public List<Tag> getTagList() {
+//        return tagList;
+//    }
 
-    public void setTagList(List<Tag> tagList) {
-        this.tagList = tagList;
-    }
+//    public void setTagList(List<Tag> tagList) {
+//        this.tagList = tagList;
+//    }
 
-    @Override
-    public String toString() {
-        return "Link{" +
-                "linkId=" + linkId +
-                ", url='" + url + '\'' +
-                ", shortUrl='" + shortUrl + '\'' +
-                ", description='" + description + '\'' +
-                ", clickAmount=" + clickAmount +
-                ", tagList=" + tagList +
-                '}';
-    }
+
 }

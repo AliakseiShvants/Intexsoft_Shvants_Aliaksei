@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.shvants</groupId>
-	<artifactId>UrlShorter</artifactId>
+	<artifactId>UrlShortener</artifactId>
 	<version>1.1.2</version>
 	<packaging>jar</packaging>
 
-	<name>UrlShorter</name>
+	<name>UrlShortener</name>
 	<description>Shvants first 'pet' project</description>
 
 	<parent>

@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../entity/user";
 import {UserService} from "../../service/user.service";
-import {Response} from "@angular/http";
-import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -14,13 +12,15 @@ export class LoginComponent implements OnInit {
   success = false;
   notExist = false;
 
+  postfix: string = 'login';
+
   constructor(private userService : UserService) {
   }
   ngOnInit() {}
 
   submit(user: User){
     if(user.login != '' && user.password != ''){
-      this.userService.register(user)
+      this.userService.postUser(user, this.postfix)
         .subscribe(
           (data: boolean) => this.success = data,
           error => {
