@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     public UserController(UserRepo userRepo) {
         this.userRepo = userRepo;
-        IdGenerator.initUserId(userRepo);
+        IdGenerator.initUserId(this.userRepo);
     }
 
     @RequestMapping("/{userId}")
@@ -59,6 +59,5 @@ public class UserController {
         User loggedUser = userRepo.findByLoginAndPassword(user.getLogin(), user.getPassword());
         return loggedUser != null;
     }
-
 
 }

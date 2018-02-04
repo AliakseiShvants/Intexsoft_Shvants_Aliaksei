@@ -1,7 +1,19 @@
 <div>
-  <h3>Ссылка:</h3>
-  <h3>Теги:</h3>
-  <h3>Описание ссылки:</h3>
+  <h2>Информация о ссылке</h2>
+  <p>
+    <label for="url" class="floatLabel">Сокращенная ссылка</label>
+    <input id="url" name="url" type="text" [(ngModel)]="link.url" required>
+  </p>
+  <p>
+    <label for="tags" class="floatLabel">Список тегов</label>
+    <input id="tags" name="tags" type="text" [(ngModel)]="link.url" required>
+  </p>
+  <p>
+    <label for="description" class="floatLabel">Описание</label>
+    <input id="description" name="description" type="text" [(ngModel)]="link.description" required>
+  </p>
+  <p>
+    <input type="button" value="Назад" id="button" routerLink="/info">
+  </p>
 </div>
-<br>
 

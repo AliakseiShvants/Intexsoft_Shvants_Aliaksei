@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface LinkRepo extends CrudRepository<Link, Long> {
 
-//    Optional<Link> findByUrl(String url);
+   Link findByUrl(String url);
 
-    Link findByUrl(String url);
+   Link findByShortUrl(String url);
 }

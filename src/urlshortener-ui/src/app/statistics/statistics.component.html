@@ -1,20 +1,22 @@
-<table>
-	<caption>
-    <h2> Данные о ваших ссылках </h2>
+<div>
+  <table>
+    <caption>
+      <h2> Наши ссылки </h2>
     </caption>
-    <tr>
+    <tr >
       <th> Ссылка </th>
-      <th> Количество переходов </th>
-      <th>  </th>
+      <th> Короткая ссылка </th>
+      <th> Описание </th>
     </tr>
-	   <tr>
-       <td>url</td>
-       <td>amount</td>
-       <td><input type="image" routerLink="/edit" src="assets/img/edit-button.png" alt="Редактировать"></td>
-		</tr>
-</table>
-<br>
-<div class="buttons">
-  <app-back></app-back>
-  <app-logout></app-logout>
+    <tr *ngFor="let link of links">
+      <td>{{link.url}}</td>
+      <td>{{link.shortUrl}}</td>
+      <td>{{link.description}}</td>
+      <!--<td><input type="image" routerLink="/edit" src="assets/img/edit-button.png" alt="Редактировать"></td>-->
+    </tr>
+  </table>
 </div>
+<!--<div class="buttons">-->
+  <!--<app-back></app-back>-->
+  <!--<app-logout></app-logout>-->
+<!--</div>-->

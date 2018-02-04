@@ -38,27 +38,11 @@ public class Link {
     public Link() {
     }
 
-    public Link(Long id) {
-        this.linkId = id;
-    }
 
-    public Link(String url) {
+    public Link(String url, String shortUrl, String description) {
         this.url = url;
-    }
-
-    public Link(String url, String description) {
-        this(url);
+        this.shortUrl = shortUrl;
         this.description = description;
-    }
-
-    public Link(String url, Tag ... tags) {
-        this(url);
-//        this.tagList = new ArrayList<>(Arrays.asList(tags));
-    }
-
-    public Link(String url, String description, Tag ... tags) {
-        this(url, description);
-//        this.tagList = new ArrayList<>(Arrays.asList(tags));
     }
 
     public Long getLinkId() {

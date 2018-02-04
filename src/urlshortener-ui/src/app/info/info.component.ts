@@ -1,21 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {LinkService} from "../../service/link.service";
 import {Link} from "../../entity/link";
-import {and} from "@angular/router/src/utils/collection";
-
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.css']
 })
+
+@Injectable()
 export class InfoComponent implements OnInit {
-
-
-  url: string;
-  postfix: string = 'info';
-  link: Link = new Link('');
-  isFail = false;
+  private url: string;
+  private postfix: string = 'info';
+  private link: Link;
 
   constructor(private linkService: LinkService) {
   }
@@ -24,16 +21,16 @@ export class InfoComponent implements OnInit {
 
   findLink(){
     if(this.url != ''){
-      this.linkService.findByUrl(this.postfix, new Link(this.url))
+      this.linkService.findByUrl(this.postfix, this.url)
         .subscribe(
-          (res: Link) => this.link = res,
-          error2 => console.log(error2)
+          (res: Link) => this.link = res
         );
     }
-    if(this.link.url != null){
+  }
+
+  set(link: Link){
+    if (this.link.url.length > 10){
       this.linkService.setLink(this.link);
-    } else {
-      this.isFail = true;
     }
   }
 }

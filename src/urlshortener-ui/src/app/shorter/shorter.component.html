@@ -1,23 +1,65 @@
-<div class="tags">
-  <form>
-	   <h2>{{url}}</h2>
-	    <input type="text" size=80 placeholder="http://"  />
-	     <br>
-	     <h2>{{description}}</h2>
-		   <textarea> </textarea>
-	     <br>
-	     <h2>{{tags}}</h2>
-		   <input type="text"  placeholder="тeг1" /><br>
-		   <input type="text"  placeholder="тeг2"  /><br>
-		   <input type="text"  placeholder="тeг3" /><br>
-		   <input type="text"  placeholder="тeг4"  /><br>
-		   <input type="text"  placeholder="тeг5"/>
-  </form>
-  <br>
-  <input type="image" routerLink="/logon" src="assets/img/ok.png" alt="OK" />
+<!--<div class="tags">-->
+  <!--<form>-->
+	   <!--<h2>{{url}}</h2>-->
+	    <!--<input type="text" size=80 placeholder="http://"  />-->
+	     <!--<br>-->
+	     <!--<h2>{{description}}</h2>-->
+		   <!--<textarea> </textarea>-->
+	     <!--<br>-->
+	     <!--<h2>{{tags}}</h2>-->
+		   <!--<input type="text"  placeholder="тeг1" /><br>-->
+		   <!--<input type="text"  placeholder="тeг2"  /><br>-->
+		   <!--<input type="text"  placeholder="тeг3" /><br>-->
+		   <!--<input type="text"  placeholder="тeг4"  /><br>-->
+		   <!--<input type="text"  placeholder="тeг5"/>-->
+  <!--</form>-->
+  <!--<br>-->
+  <!--<input type="image" routerLink="/logon" src="assets/img/ok.png" alt="OK" />-->
+<!--</div>-->
+<!--<br>-->
+<!--<div class="buttons">-->
+  <!--<app-back></app-back>-->
+  <!--<app-logout></app-logout>-->
+<!--</div>-->
+<div *ngIf="preview">
+  <table>
+    <!--<caption>-->
+    <!--<h2> Наши ссылки </h2>-->
+    <!--</caption>-->
+    <tr >
+      <th> Ссылка </th>
+      <th> Описание </th>
+    </tr>
+    <tr>
+      <td>{{url}}</td>
+      <td>{{description}}</td>
+    </tr>
+  </table>
 </div>
-<br>
-<div class="buttons">
-  <app-back></app-back>
-  <app-logout></app-logout>
-</div>
+<form action="#" method="post">
+  <h2>Сократить ссылку</h2>
+  <p [hidden]="preview">
+    <label for="url" class="floatLabel">Ссылка</label>
+    <input id="url" name="url" type="text" [(ngModel)]="url" required>
+  </p>
+  <!--<p>-->
+    <!--<label for="tags" class="floatLabel">Список тегов</label>-->
+    <!--<input id="tags" name="tags" type="text" [(ngModel)]="link.tags" required>-->
+  <!--</p>-->
+  <p [hidden]="preview">
+    <label for="description" class="floatLabel">Описание</label>
+    <input id="description" name="description" type="text" [(ngModel)]="description" required>
+  </p>
+
+  <p *ngIf="!isPresent" [hidden]="preview">
+    <input type="button" value="Препросмотр" id="view"  (click)="set()">
+  </p>
+  <h3 *ngIf="isPresent">Такую ссылку уже сокращали...</h3>
+  <p>
+    <input type="submit" value="Сократить" id="shorter" (click)="post()">
+  </p>
+  <p>
+    <input type="button" value="Посмотреть все" id="view-all" routerLink="/statistics">
+  </p>
+</form>
+

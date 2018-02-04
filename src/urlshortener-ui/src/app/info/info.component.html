@@ -1,14 +1,3 @@
-<!--<h2>Вы Гость!</h2>-->
-<!--<h3>Вы можете получить информацию о ссылке</h3>-->
-<!--<form>-->
-  <!--<input type="text" size=40  placeholder="Вставьте ссылку">-->
-  <!--<br>-->
-  <!--<br>-->
-  <!--<input type="image" routerLink="/url-info" src="assets/img/get_button.png" alt="Получить!">-->
-<!--</form>-->
-<!--<br>-->
-<!--<br>-->
-<!--<br>-->
 <form action="#" method="post" (submit)="findLink()" >
   <h2>Получить информацию о ссылке</h2>
   <p>
@@ -18,7 +7,12 @@
   </p>
   <p>
     <span *ngIf="isFail"> К сожалению, такую ссылку еще не сокращали. Вы можете быть первым! </span>
-    <input type="submit" value="Получить!" id="submit">
+    <input type="submit" value="Поиск" id="submit">
+
+    <input type="button" value="Просмотреть" id="button" routerLink="/url-info" *ngIf="link.linkId > 0">
   </p>
+
+  <div>{{test?.url}}</div>
+  <div>{{link?.url}}</div>
 </form>
-<div>{{link.linkId}}</div>
+

@@ -14,13 +14,13 @@ public class ShortUrlGenerator {
     
     private static int base = encryptKey.length;
     
-    private static List<Integer> base62Id(Integer id){
+    private static List<Integer> base62Id(int id){
         List<Integer> list = new ArrayList<>();
         int flag = 0;
         do {
             if (id >= base){
                 list.add(id / base);
-                id = id % base;
+                id %= base;
             } else {
                 list.add(id);
                 flag = -1;
@@ -29,9 +29,9 @@ public class ShortUrlGenerator {
         return list;
     }
     
-    public static String generateShortUrl(Integer id){
+    public static String generateShortUrl(Number id){
         StringBuilder shortUrl = new StringBuilder(prefix);
-        base62Id(id).forEach(digit -> shortUrl.append(encryptKey[digit]));
+        base62Id(id.intValue()).forEach(digit -> shortUrl.append(encryptKey[digit]));
         return shortUrl.toString();
     }
 }
