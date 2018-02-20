@@ -1,58 +1,89 @@
 package com.shvants.UrlShorter.domain;
 
+import com.fasterxml.jackson.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Simple JavaBean domain object that represents a User.
+ * <p>Simple JavaBean domain object that represents a User.
  */
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
+@Component
+@Scope("prototype")
+@NamedQueries({
+        @NamedQuery(name = "unhappyId",
+                query = "select u from User u " +
+                        "where u.userId = :id")
+})
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "happyId",
+                query = "SELECT * FROM webapp.users WHERE id = ?1",
+                resultClass = User.class)
+})
 public class User implements Serializable {
 
     private static final long serialVersionUID = -8854389934589673010L;
+    private final static Logger logger = LoggerFactory.getLogger(User.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    @Column(name = "ID")
+    private Integer userId;
 
-    @Column(name = "fullname")
+    @Column(name = "FULLNAME")
     private String fullName;
 
-    @Column(name = "login")
+    @Column(name = "LOGIN")
     private String login;
 
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "role")
-    private String role;
+    @JsonManagedReference("role")
+    @ManyToOne
+    @JoinColumn(name = "ROLE_ID")
+    private Role role;
 
-    public User() {
-    }
+//    @JsonManagedReference("user-link")
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "USERS_LINKS",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "LINK_ID")})
+    private Set<Link> userLinks;
 
-    public User(String fullName, String login, String password, String role) {
+    public User() { }
+
+    public User(String fullName, String login, String password, Role role) {
         this.fullName = fullName;
         this.login = login;
         this.password = password;
         this.role = role;
     }
-    public User(Long id, String fullName, String login, String password, String role) {
+    public User(Integer id, String fullName, String login, String password, Role role) {
         this(fullName, login, password, role);
         this.userId = id;
     }
+
 
     public User(String fullName) {
         this.fullName = fullName;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -80,11 +111,33 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<Link> getUserLinks() {
+        return userLinks != null ? new HashSet<>(userLinks) : userLinks;
+    }
+
+    public void setUserLinks(Set<Link> usersLinks) {
+        if (usersLinks != null){
+            this.userLinks = new HashSet<>(usersLinks);
+        }
+        this.userLinks = usersLinks;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", fullName='" + fullName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

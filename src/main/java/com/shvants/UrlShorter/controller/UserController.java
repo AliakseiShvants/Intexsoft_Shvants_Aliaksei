@@ -1,63 +1,68 @@
 package com.shvants.UrlShorter.controller;
 
-import com.shvants.UrlShorter.domain.Link;
-import com.shvants.UrlShorter.domain.Role;
+//import com.shvants.UrlShorter.domain.Role;
 import com.shvants.UrlShorter.domain.User;
-import com.shvants.UrlShorter.repository.UserRepo;
-import com.shvants.UrlShorter.service.IdGenerator;
+import com.shvants.UrlShorter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
+/**
+ * <p>Controller class for {@link User} entity.
+ */
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("api/users/")
 public class UserController {
 
-    private final UserRepo userRepo;
-
     @Autowired
-    public UserController(UserRepo userRepo) {
-        this.userRepo = userRepo;
-        IdGenerator.initUserId(this.userRepo);
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @RequestMapping("/{userId}")
-    public User getUserById(@PathVariable Long userId){
-        return userRepo.findOne(userId);
+    @GetMapping("{id}")
+    public User userById(@PathVariable Integer id){
+        return userService.getUserById(id);
     }
 
-    @RequestMapping("/all")
-    public Iterable<User> getAll(){
-        return userRepo.findAll();
+    /**
+     * Access permission for user entity with role 'ADMIN'
+     * @return
+     */
+    @GetMapping("admin/all")
+    public Iterable<User> all(){
+        return userService.getAllUsers();
     }
 
-//    @RequestMapping("/getMockUser")
-//    public User getUser(
-//            @RequestParam(value = "userId", defaultValue = "1") Long id,
-//            @RequestParam(value = "username", defaultValue = "Aliaksei Shvants") String fullName,
-//            @RequestParam(value = "email", defaultValue = "email@gmail.com") String email,
-//            @RequestParam(value = "password", defaultValue = "1111") String password){
-//        return new User(id, fullName, email, password);
-//    }
-
-    @PostMapping(value = "/register")
-    @ResponseBody
+    /**
+     * Access permission for user entity with role 'GUEST'
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "register")
     public Boolean register(@RequestBody User user){
-        List<User> userList = userRepo.findByFullNameOrLogin(user.getFullName(), user.getLogin());
-        if (userList.isEmpty()){
-            User newUser = new User(user.getFullName(), user.getLogin(), user.getPassword(), Role.USER.name());
-            userRepo.save(newUser);
+        User newUser;
+        if (userService.getUserByLoginAndPassword(user.getLogin(), user.getPassword()) == null){
+            newUser = new User(user.getFullName(), user.getLogin(), user.getPassword(), user.getRole());
+            userService.saveUser(newUser);
             return true;
         }
         return false;
     }
 
-    @PostMapping(value = "/login")
+    /**
+     *
+     * @param user
+     * @return true if user entity is exist in database and false otherwise
+     */
+    @PostMapping(value = "admin/exist")
     @ResponseBody
-    public Boolean login(@RequestBody User user){
-        User loggedUser = userRepo.findByLoginAndPassword(user.getLogin(), user.getPassword());
-        return loggedUser != null;
+    public Boolean isExist(@RequestBody User user){
+        return userService.getUserByLoginAndPassword(user.getLogin(), user.getPassword()) != null;
     }
 
 }

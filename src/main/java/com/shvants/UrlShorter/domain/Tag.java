@@ -1,25 +1,47 @@
 package com.shvants.UrlShorter.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Simple JB object that represents tag creating by {@link User } in {@link Link}
+ * <p>Simple JB object that represents tag creating by {@link User } in {@link Link}
  */
 @Entity
-@Table(name = "tags")
-public class Tag {
+@Table(name = "TAGS")
+@Component
+@Scope("prototype")
+public class Tag implements Serializable{
+
+    private static final long serialVersionUID = 8939886430607951304L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tagId;
+    @Column(name = "ID")
+    private Integer tagId;
 
-    @Column(name = "title")
+    @Column(name = "TITLE")
     private String title;
+
+//    @JsonBackReference("link-tag")
+    @ManyToMany
+    @JoinTable(name = "LINKS_TAGS",
+            joinColumns = {@JoinColumn(name = "TAG_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "LINK_ID")})
+    private Set<Link> tagLinks;
 
     public Tag() {
     }
 
-    public Tag(Long tagId) {
+    public Tag(Integer tagId) {
         this.tagId = tagId;
     }
 
@@ -27,11 +49,11 @@ public class Tag {
         this.title = title;
     }
 
-    public Long getTagId() {
+    public Integer getTagId() {
         return tagId;
     }
 
-    public void setTagId(Long tagId) {
+    public void setTagId(Integer tagId) {
         this.tagId = tagId;
     }
 
@@ -43,11 +65,32 @@ public class Tag {
         this.title = title;
     }
 
+    public Set<Link> getTagLinks() {
+        return tagLinks != null ? new HashSet<>(tagLinks) : tagLinks;
+    }
+
+    public void setTagLinks(Set<Link> tagLinks) {
+        if (tagLinks != null){
+            this.tagLinks = new HashSet<>(tagLinks);
+        }
+        this.tagLinks = tagLinks;
+    }
+
     @Override
     public String toString() {
         return "Tag{" +
                 "tagId=" + tagId +
-                ", title='" + title + '\'' +
+                ", title='" + title +
                 '}';
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("tag named=" + this.title +" is constructed!");
+    }
+
+    @PreDestroy
+    public void destroy(){
+        System.out.println("Bean type=" + this.title + " is destroyed!");
     }
 }

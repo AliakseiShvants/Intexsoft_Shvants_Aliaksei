@@ -1,15 +1,15 @@
 package com.shvants.UrlShorter.controller;
 
 import com.shvants.UrlShorter.domain.Link;
-import com.shvants.UrlShorter.exception.LinkNotFoundException;
 import com.shvants.UrlShorter.repository.LinkRepo;
-import com.shvants.UrlShorter.service.IdGenerator;
-import com.shvants.UrlShorter.service.ShortUrlGenerator;
+import com.shvants.UrlShorter.util.IdGenerator;
+import com.shvants.UrlShorter.util.ShortUrlGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+/**
+ * <p>
+ */
 
 @RestController
 @RequestMapping("api/links")
@@ -39,9 +39,14 @@ public class LinkController {
 //        }
 //    }
 
+    /**
+     * Access permission for all user entities
+     * @param link
+     * @return
+     */
     @PostMapping(value = "/link/shorter")
     @ResponseBody
-    public Link shorterLink(@RequestBody Link link ){
+    public Link shorterLink(@RequestBody Link link){
         Link lookedLink = linkRepo.findByUrl(link.getUrl());
         if (lookedLink == null){
             Long id = IdGenerator.getLinkIdGenerator().incrementAndGet();
@@ -53,6 +58,11 @@ public class LinkController {
         return null;
     }
 
+    /**
+     * Access permission all user entities
+     * @param url
+     * @return
+     */
     @PostMapping(value = "/link/info")
     @ResponseBody
     public Link getUrl(@RequestBody String url){

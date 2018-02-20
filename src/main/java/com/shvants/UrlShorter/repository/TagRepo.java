@@ -1,18 +1,17 @@
 package com.shvants.UrlShorter.repository;
 
 import com.shvants.UrlShorter.domain.Link;
+import com.shvants.UrlShorter.domain.Tag;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 @Transactional
-public interface LinkRepo extends CrudRepository<Link, Integer> {
+public interface TagRepo extends CrudRepository<Tag, Integer> {
 
-   Link findByUrl(String url);
 
-   Link findByShortUrl(String url);
 
 }
