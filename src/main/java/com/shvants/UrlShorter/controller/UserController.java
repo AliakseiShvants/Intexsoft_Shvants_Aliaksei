@@ -6,6 +6,7 @@ import com.shvants.UrlShorter.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
@@ -24,7 +25,7 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private AnnotationConfigWebApplicationContext context;
+    private ReloadableResourceBundleMessageSource source;
 
     @Autowired
     private final UserService userService;
@@ -48,10 +49,15 @@ public class UserController {
     @GetMapping("admin/all")
     public Iterable<User> all(){
         logger.info("you're inside all method");
-        String welcome = context.getMessage("message.welcome", new Object[]{"all"}, new Locale("en"));
+
+        String welcome = source.getMessage("message.welcome", new Object[]{"all"},
+                new Locale("en", "EN"));
         System.out.println(welcome);
-        String bye = context.getMessage("message.goodbye", new Object[]{"all"}, new Locale("ru"));
+
+        String bye = source.getMessage("message.goodbye", new Object[]{"all"},
+                new Locale("ru", "RU"));
         System.out.println(bye);
+
         return userService.getAllUsers();
     }
 
