@@ -140,8 +140,8 @@ public class AppConfig {
         ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
         resource.setBasenames(messageSourceName);
 
-//        resource.setUseCodeAsDefaultMessage(true);
-//        resource.setFallbackToSystemLocale(false);
+        resource.setUseCodeAsDefaultMessage(true);
+        resource.setFallbackToSystemLocale(false);
 
         resource.setCacheSeconds(cacheSeconds);
         resource.setDefaultEncoding(encoding);
@@ -162,7 +162,6 @@ public class AppConfig {
     public LocaleChangeInterceptor localeChangeInterceptor() {
         logger.info("inside in locale change interceptor");
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-//        lci.setParamName("lang");
         return lci;
     }
 

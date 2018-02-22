@@ -22,9 +22,5 @@
         <appender-ref ref="file" />
         <appender-ref ref="console" />
     </root>
-    <!--<root level="error">-->
-        <!--<appender-ref ref="file" />-->
-        <!--<appender-ref ref="console" />-->
-    <!--</root>-->
 
 </configuration>

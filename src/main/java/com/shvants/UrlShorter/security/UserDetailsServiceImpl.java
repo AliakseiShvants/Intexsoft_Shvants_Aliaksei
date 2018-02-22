@@ -21,6 +21,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userService.getUserByLogin(login);
+
+        try{}catch ()
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getTitle());
         return new org.springframework.security.core.userdetails.User(user.getLogin(),
                 user.getPassword(), Arrays.asList(authority));
