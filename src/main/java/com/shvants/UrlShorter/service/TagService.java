@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Service class for user entity for working with repository interface
+ * Service class for {@link Tag} entity for working with repository interface
  *
  * @Transactional need for create-update operations.
  */

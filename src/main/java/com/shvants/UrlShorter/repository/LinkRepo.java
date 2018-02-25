@@ -7,6 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Access interface to {@link Link} entity in database
+ */
 @Repository
 @Transactional
 public interface LinkRepo extends CrudRepository<Link, Integer> {

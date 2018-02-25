@@ -2,6 +2,7 @@ package com.shvants.UrlShorter.config;
 
 import com.shvants.UrlShorter.security.Roles;
 import com.shvants.UrlShorter.security.UserDetailsServiceImpl;
+import com.shvants.UrlShorter.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import java.util.Locale;
 
+/**
+ * <p>A class for customization to the web security.
+ */
 @Configuration
 @EnableWebSecurity
-@ComponentScan("com.shvants.UrlShorter.security")
+@ComponentScan(Constants.SECURITY)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     private final UserDetailsServiceImpl detailsService;
 
@@ -34,18 +36,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder registry)
             throws Exception {
         registry.userDetailsService(detailsService).init(registry);
-        logger.info("userDetailService is registered");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        logger.info("inside httpSecurity configurer");
         http.authorizeRequests()
                 .antMatchers("/api/users/admin/**").hasRole(Roles.ADMIN.name())
                 .antMatchers("/api/links/all").hasAnyRole(Roles.USER.name(), Roles.GUEST.name())
                 .antMatchers("/api/tags/all").hasRole(Roles.ADMIN.name())
                 .and()
                 .httpBasic();
-        logger.info("http request is configure");
     }
 }

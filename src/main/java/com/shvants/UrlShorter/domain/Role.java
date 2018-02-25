@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * <p> Class that represents role of {@link User}
+ * <p> Class that represents role of {@link User} entity.
  */
 
 @Entity

@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Service class for link entity for working with repository interface
+ * Service class for {@link Link} entity for working with repository interface
  *
  * @Transactional need for create-update operations.
  */

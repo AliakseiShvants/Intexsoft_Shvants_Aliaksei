@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * <p>Simple JavaBean domain object that represents a User.
+ * <p>Simple JavaBean domain object that represents a User entity.
  */
 
 @Entity
