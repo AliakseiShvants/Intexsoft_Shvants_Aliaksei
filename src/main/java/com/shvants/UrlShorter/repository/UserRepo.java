@@ -5,12 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.NamedQuery;
 import java.util.List;
 /**
- * Access interface to user entity in database
+ * Access interface to {@link User} entity in database
  *
  * @Transactional need for create-update operations.
  */
